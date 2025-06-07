@@ -4,6 +4,7 @@ import requests
 import signal
 import sys
 import logging
+from security import safe_requests
 
 terminate = False
 
@@ -11,7 +12,7 @@ def run_load_generator(api_url, delay_ms):
     global terminate
     while not terminate:
         try:
-            response = requests.get(api_url)
+            response = safe_requests.get(api_url)
             logging.info(f"Request to {api_url} completed with status code {response.status_code}")
         except requests.RequestException as e:
             logging.error(f"Request to {api_url} failed: {e}")
